@@ -17,7 +17,7 @@ if not CWA_KEY:
     st.error("❌ 尚未設定 CWA_KEY，請在本機環境變數或 Streamlit Secrets 中加入。")
     st.stop()
 
-API_URL = "https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-C0032-001"
+API_URL = "http://opendata.cwa.gov.tw/api/v1/rest/datastore/F-C0032-001"
 
 @st.cache_data(ttl=900)
 def fetch_forecast():
