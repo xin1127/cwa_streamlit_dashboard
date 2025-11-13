@@ -17,16 +17,16 @@ if not CWA_KEY:
     st.error("❌ 尚未設定 CWA_KEY，請在本機環境變數或 Streamlit Secrets 中加入。")
     st.stop()
 
-API_URL = "http://opendata.cwa.gov.tw/api/v1/rest/datastore/F-C0032-001"
+API_URL = "https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-C0032-001"
+
 
 @st.cache_data(ttl=900)
 def fetch_forecast():
     """向中央氣象署取得 36 小時天氣預報資料"""
     params = {"Authorization": CWA_KEY}
-    resp = requests.get(API_URL, params=params, timeout=20)
+    resp = requests.get(API_URL, params=params, timeout=20, verify=False)
     resp.raise_for_status()
-    data = resp.json()
-    return data
+    return resp.json()
 
 def to_dataframe(data: dict) -> pd.DataFrame:
     """把原始 JSON 轉成表格（DataFrame）"""
